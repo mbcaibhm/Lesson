@@ -25,67 +25,88 @@ public class NewMonoBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Move();
-        //if (Input.GetButtonDown("Jump"))
-        //{
-        //  Jump();
-        //}
+        ////Move();
+        ////if (Input.GetButtonDown("Jump"))
+        ////{
+        ////  Jump();
+        ////}
 
 
 
-        //if(cc.collisionFlags == CollisionFlags.Below)
-        //{
+        ////if(cc.collisionFlags == CollisionFlags.Below)
+        ////{
 
-        //}
+        ////}
 
 
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        Vector3 dir = new Vector3(h, 0, v);
-        //dir.Normalize();
-        //transform.Translate(dir * speed * Time.deltaTime);
-        dir = Camera.main.transform.TransformDirection(dir);
-        //transform.Translate(dir * speed * Time.deltaTime);
-        //cc.Move(dir * speed * Time.deltaTime);
-        //velocityY += gravity * Time.deltaTime;
-        //dir.y = velocityY;
+        //float h = Input.GetAxis("Horizontal");
+        //float v = Input.GetAxis("Vertical");
+        //Vector3 dir = new Vector3(h, 0, v);
+        ////dir.Normalize();
+        ////transform.Translate(dir * speed * Time.deltaTime);
+        //dir = Camera.main.transform.TransformDirection(dir);
+        ////transform.Translate(dir * speed * Time.deltaTime);
+        ////cc.Move(dir * speed * Time.deltaTime);
+        ////velocityY += gravity * Time.deltaTime;
+        ////dir.y = velocityY;
 
+
+        ////if (cc.isGrounded)
+        ////{
+        ////    velocityY = 0;
+        ////}
+        ////if (Input.GetButtonDown("Jump"))
+        ////{
+        ////    velocityY = jumpPower;
+        ////}
 
         //if (cc.isGrounded)
         //{
         //    velocityY = 0;
+        //    jumpCount = 0;
         //}
-        //if (Input.GetButtonDown("Jump"))
+        ////if (cc.collisionFlags == CollisionFlags.Below)
+        ////{
+        ////    velocityY = 0;
+        ////    jumpCount = 0;
+        ////}
+        //else
         //{
+        //    velocityY += gravity * Time.deltaTime;
+        //    dir.y = velocityY;
+        //}
+        //if (Input.GetButtonDown("Jump") && jumpCount < 2)
+        //{
+        //    jumpCount++;
         //    velocityY = jumpPower;
         //}
 
-        if (cc.isGrounded)
+
+        //cc.Move(dir * speed * Time.deltaTime);
+
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        Vector3 dir = new Vector3(h, 0, v);
+        dir = Camera.main.transform.TransformDirection(dir);
+
+        if(cc.isGrounded && velocityY < 0)
         {
-            velocityY = 0;
+            velocityY = -2f;
             jumpCount = 0;
         }
-        //if (cc.collisionFlags == CollisionFlags.Below)
-        //{
-        //    velocityY = 0;
-        //    jumpCount = 0;
-        //}
-        else
-        {
-            velocityY += gravity * Time.deltaTime;
-            dir.y = velocityY;
-        }
-        if (Input.GetButtonDown("Jump") && jumpCount < 2)
+
+        if(Input.GetButtonDown("Jump") && jumpCount < 2)
         {
             jumpCount++;
             velocityY = jumpPower;
         }
+        
+        velocityY += gravity * Time.deltaTime;
 
+        Vector3 velocity = dir * speed;
+        velocity.y = velocityY;
 
-        cc.Move(dir * speed * Time.deltaTime);
-
-
-
+        cc.Move(velocity * Time.deltaTime);
     }
 
     //void Move()
