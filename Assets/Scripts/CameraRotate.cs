@@ -17,6 +17,8 @@ public class CameraRotate : MonoBehaviour
     {
         float h = Input.GetAxis("Mouse X");
         float v = Input.GetAxis("Mouse Y");
+        //float h = Input.GetAxis("RightStickHorizontal");
+        //float v = Input.GetAxis("RightStickVertical");
         //Vector3 dir = new Vector3(h, v, 0);
         //transform.Rotate(dir * speed * Time.deltaTime);
         //Vector3 dir = new Vector3(-v, h, 0);

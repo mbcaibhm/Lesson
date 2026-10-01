@@ -21,7 +21,7 @@ public class PlayerFire : MonoBehaviour
     void Update()
     {
         //Fire();
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) | Input.GetButtonDown("Fire1"))
         {
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit hit;
@@ -50,7 +50,9 @@ public class PlayerFire : MonoBehaviour
             //}
             
         }
-        if(Input.GetMouseButtonDown(1))
+
+
+        if(Input.GetMouseButtonDown(1) | Input.GetButtonDown("Fire2"))
         {
             GameObject bomb = Instantiate(bombFactory);
             bomb.transform.position = firePoint.position;
