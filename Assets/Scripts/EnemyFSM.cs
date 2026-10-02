@@ -16,6 +16,7 @@ public class EnemyFSM : MonoBehaviour
     public float findRange = 15f;
     public float moveRange = 30f;
     public float attackRange = 2f;
+    Animator anim;
     Vector3 startPoint;
     Transform player;
     CharacterController cc;
@@ -27,6 +28,7 @@ public class EnemyFSM : MonoBehaviour
     float attTime = 2f;
     float timer = 0f;
     
+    
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,6 +38,7 @@ public class EnemyFSM : MonoBehaviour
         startPoint = transform.position;
         player = GameObject.Find("Player").transform;  //Find는 무거우니까 Update 사용에 주의하자
         cc = GetComponent<CharacterController>();
+        anim = GetComponent<Animator>();
 
     }
 
@@ -71,7 +74,7 @@ public class EnemyFSM : MonoBehaviour
         {
             state = EnemyState.Move;
             print("상태전환: Idel -> Move");
-            //anim.SetTrigger("Move");
+            anim.SetTrigger("Move");
         }
     }
 
@@ -92,7 +95,7 @@ public class EnemyFSM : MonoBehaviour
             //transform.LookAt(player);
             //transform.forward = Vector3.Lerp(transform.forward, dir, 10 * Time.deltaTime);
 
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), 100 * 1f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), 10f * Time.deltaTime);
 
 
             //cc.Move(dir * speed * Time.deltaTime);
@@ -130,6 +133,8 @@ public class EnemyFSM : MonoBehaviour
         if(Vector3.Distance(transform.position, startPoint) > 0.1f)
         {
             Vector3 dir = (startPoint - transform.position).normalized;
+
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), 10f * Time.deltaTime);
             cc.SimpleMove(dir * speed);
         }
         else
